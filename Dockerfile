@@ -1,21 +1,24 @@
-FROM --platform=linux/amd64 python:3.14-rc-slim
+# 使用穩定正式版 Python
+FROM python:3.12-slim
 
-RUN apt update
+# 更新套件來源並安裝必要套件（可視需要擴充）
+RUN apt update && apt install -y --no-install-recommends \
+    && apt clean \
+    && rm -rf /var/lib/apt/lists/*
 
-# Create a working directory
+# 建立工作目錄
 WORKDIR /app
 
-# Copy the requirements file into the image
-COPY requirements.txt /app/
-COPY gp1_project_web.py /app/
-# 如果要在啟動container時設定系統環境變數，可以不用複製.env檔案
-COPY .env /app/
+# 複製專案檔案進入 image
+COPY requirements.txt .
+COPY gp1_project_web.py .
+COPY .env .
 
-# Install Python dependencies
+# 安裝 Python 套件
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose the port the app runs on
+# 開放容器的 8080 port
 EXPOSE 8080
 
-# Set the entrypoint for the container
+# 執行入口
 ENTRYPOINT ["python", "gp1_project_web.py"]
