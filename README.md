@@ -6,9 +6,6 @@ gp1_project
 使用方式
 https://www.canva.com/design/DAGpYwlnDDs/dyJ3uFUQPQPw-Dq-Yc7bUQ/watch?utm_content=DAGpYwlnDDs&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h13c04eca6f
 
-docker建構與執行
-###bash
-
 建立 Docker 映像
 docker image build -t gp1:latest .
 
